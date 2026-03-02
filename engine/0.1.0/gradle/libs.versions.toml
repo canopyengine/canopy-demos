@@ -1,0 +1,25 @@
+[versions]
+
+# Kotlin
+kotlin = "2.3.10"
+kotlinxSerialization = "1.10.0"
+
+# Canopy
+canopy = "0.1.0-SNAPSHOT"
+
+[libraries]
+
+# Canopy
+canopy-core = {module = "io.github.canopyengine:core", version.ref = "canopy"}
+canopy-app-core = {module = "io.github.canopyengine:app-core", version.ref = "canopy"}
+canopy-app-headless = {module= "io.github.canopyengine:app-headless", version.ref = "canopy"}
+canopy-input = {module = "io.github.canopyengine:input", version.ref = "canopy"}
+canopy-data-core = {module = "io.github.canopyengine:data-core", version.ref = "canopy"}
+
+# Kotlin
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
+
+
+[plugins]
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
