@@ -1,4 +1,4 @@
-package io.github.canopy.demos.ecosystem.world
+package io.github.canopy.demos.ecosystem.world.simulation
 
 import io.canopy.engine.core.nodes.core.Node
 import kotlinx.serialization.Serializable

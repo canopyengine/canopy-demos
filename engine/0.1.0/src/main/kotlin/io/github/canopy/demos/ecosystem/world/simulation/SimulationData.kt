@@ -1,9 +1,9 @@
-package io.github.canopy.demos.ecosystem.world
+package io.github.canopy.demos.ecosystem.world.simulation
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-class WorldData(
+class SimulationData(
     // Biome
     var grass: Int = 0,
     var trees: Int = 0,

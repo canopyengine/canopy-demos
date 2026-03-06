@@ -17,6 +17,8 @@ dependencies {
     implementation(libs.canopy.input)
     implementation(libs.canopy.data.core)
 
+    implementation(libs.logback.classic)
+
     testImplementation(kotlin("test"))
 }
 
