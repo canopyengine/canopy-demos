@@ -1,7 +1,7 @@
 package io.github.canopy.demos.ecosystem.world.simulation
 
-import io.canopy.engine.core.nodes.core.Node
-import io.canopy.engine.core.nodes.core.behavior
+import io.canopy.engine.core.nodes.Node
+import io.canopy.engine.core.nodes.behavior
 import io.canopy.engine.core.reactive.lazyResolve
 import io.canopy.engine.logging.logger
 

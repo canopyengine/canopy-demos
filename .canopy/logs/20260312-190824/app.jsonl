@@ -1,0 +1,2 @@
+{"@timestamp":"2026-03-12T19:08:26.4869866Z","@version":"1","message":"[grass=7, trees=3, rivers=2, rabbits=5, foxes=2, weather=SUNNY] Loaded config!","logger_name":"World","thread_name":"HeadlessApplication","level":"INFO","level_value":20000}
+{"@timestamp":"2026-03-12T19:08:26.6895301Z","@version":"1","message":"[data=io.github.canopy.demos.ecosystem.world.simulation.SimulationData@366a9fc5] Ready","logger_name":"Simulation","thread_name":"HeadlessApplication","level":"INFO","level_value":20000}
