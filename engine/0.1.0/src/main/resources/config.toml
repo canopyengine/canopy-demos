@@ -1,0 +1,10 @@
+grass  = 7 # number of grass patches
+trees  = 3 # number of tree
+rivers = 2 # number of riverbeds
+
+# Animals
+rabbits = 5
+foxes = 2
+
+# Weather
+weather = "SUNNY" # rainy | cloudy | cold | hot
