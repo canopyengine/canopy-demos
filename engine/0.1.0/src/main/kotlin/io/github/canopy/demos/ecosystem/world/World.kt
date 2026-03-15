@@ -1,11 +1,11 @@
 package io.github.canopy.demos.ecosystem.world
 
+import io.canopy.engine.core.flow.Context
 import io.canopy.engine.core.managers.manager
 import io.canopy.engine.core.nodes.Node
 import io.canopy.engine.core.nodes.behavior
-import io.canopy.engine.core.reactive.Context
 import io.canopy.engine.data.core.assets.AssetsManager
-import io.canopy.engine.data.core.parsers.TomlParser
+import io.canopy.engine.data.core.parsers.Toml
 import io.canopy.engine.logging.logger
 import io.github.canopy.demos.ecosystem.world.input.CommandHandler
 import io.github.canopy.demos.ecosystem.world.logs.EventLogger
@@ -29,7 +29,7 @@ class World(
 
                 val file = assetsManager.loadFile("config.toml", AssetsManager.FileSource.Classpath)
 
-                val config = TomlParser.fromFile<SimulationData>(file)
+                val config = Toml.fromFile<SimulationData>(file)
                 data = config
 
                 logger.info(
@@ -45,7 +45,7 @@ class World(
 
 
         Context {
-            provide("data"){this@World.data}
+            provide("data") { this@World.data }
 
             // 1. Run simulation
             Simulation()

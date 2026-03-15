@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlin.serialization)
@@ -13,17 +14,30 @@ repositories {
 }
 
 dependencies {
-    implementation(libs.canopy.app.headless)
+    // Canopy
+
+    /// Core
+    implementation(libs.canopy.core)
+
+    /// App
+    implementation(libs.canopy.app.core)
+    implementation(libs.canopy.app.terminal)
+
+    /// Input
     implementation(libs.canopy.input)
+
+    /// Data
     implementation(libs.canopy.data.core)
 
-    implementation(libs.logback.classic)
+    runtimeOnly(libs.logback.classic)
 
     testImplementation(kotlin("test"))
 }
 
 kotlin {
-    jvmToolchain(24)
+    jvmToolchain{
+        languageVersion = JavaLanguageVersion.of(21)
+    }
 }
 
 tasks.test {
