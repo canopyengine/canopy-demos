@@ -1,235 +1,202 @@
-# 🌿 Ecosystem Simulation — Contributor Overview (v0.1.0)
+# 🌿 Ecosystem Simulation — Tech Demo (v0.1.0)
 
-This document defines the **scope and core concepts** of the 0.1.0 tech demo.
-
-The goal is to deliver a **small, believable, and observable ecosystem simulation** that showcases Canopy’s capabilities.
+A minimal, terminal-based ecosystem simulation focused on **clarity, autonomy, and observable behavior**.
 
 ---
 
 ## 🎯 Goal
 
-Create a **live, terminal-based ecosystem simulation** where:
+Create a small simulation where:
 
-* Agents behave autonomously
-* The environment influences outcomes
-* Events form a readable narrative
-* Users can observe and lightly interact
+* Agents act autonomously
+* The environment affects outcomes
+* Events form a clear, readable narrative
 
-> This is a **tech demo**, not a full simulation system.
+> This is a **tech demo**, not a full system.
 
 ---
 
-## 🧩 Core Components
+## 🧩 Core Systems
 
-The simulation is built from three systems:
+The simulation consists of:
 
-1. **Agents** — entities with behavior
-2. **Environment** — world state and resources
-3. **Simulation Loop** — time and progression
+1. **Agents** — entities with simple behavior
+2. **Environment** — resources and conditions
+3. **Simulation Loop** — time progression
 
 ---
 
 ## 🐾 Agents
 
-Agents are **autonomous entities** driven by simple internal state.
-
 ### Types
 
-* **Deer** → passive, survival-focused
-* **Wolves** → aggressive predators
+* **Deer**
+
+  * Passive
+  * Seek food and water
+  * Flee when threatened
+
+* **Wolves**
+
+  * Predators
+  * Hunt deer for food
 
 ---
 
-### 🧠 Needs vs Drives
+### 🧠 Decision Model (Simplified)
 
-Agents make decisions using two layers:
+Agents use a **priority + override system**:
 
-#### Needs (long-term)
+1. Choose the most critical need:
 
-Core survival metrics:
+  * Hunger
+  * Thirst
+  * Energy
 
-* Hunger
-* Thirst
-* Energy
-* Safety
+2. Override with **fear** if danger is nearby:
 
----
+  * Deer flee from wolves
+  * Wolves may chase prey
 
-#### Drives (short-term)
-
-Contextual modifiers:
-
-* Fear
-* Aggression
+> No planning, learning, or complex AI.
 
 ---
 
-> Needs define *priorities*.
-> Drives influence *immediate reactions*.
+### ⚙️ Behavior Rules
 
----
-
-### 🎯 Behavior Model
-
-Agents use **simple rule-based decision-making**:
-
-* Satisfy the most critical need
-* React to nearby threats or opportunities
-* Adjust behavior based on environment (time, weather)
-
-No advanced AI, planning, or learning systems are included in 0.1.0.
+* Agents move randomly when idle
+* Agents interact only with nearby entities
+* Agents lose energy over time
+* Agents die when energy reaches zero
 
 ---
 
 ## 🌍 Environment
 
-The environment provides **resources and constraints**.
+### World Model
 
-### Key Elements
+* Simple **2D grid**
+* Agents occupy positions
+* Interactions occur within a fixed radius
 
-* **Food Sources**
+---
 
-    * Regenerate over time
-    * Limited availability
+### Resources
 
-* **Water Sources**
+* **Food**
 
-    * Shared between agents
+  * Limited
+  * Regenerates slowly
+
+* **Water**
+
+  * Fixed locations
+  * Shared by all agents
 
 * **Cover**
 
-    * Areas that improve safety (e.g. vegetation)
+  * Reduces chance of being detected
 
 ---
 
-## 🌦️ Global Conditions
+## 🌦️ Conditions (Minimal)
 
-Global conditions affect both **visibility and behavior**.
+Only two environmental modifiers:
 
 ### Time of Day
 
-* Morning
-* Dusk
+* Day
 * Night
 
+Effect:
+
+* Night reduces visibility
+
 ---
 
-### Weather & Seasons
-
-A small set of conditions such as:
+### Weather
 
 * Clear
-
 * Rain
 
-* Storm
+Effect:
 
-* Seasons (e.g. spring, winter) act as simple modifiers
-
----
-
-> These are **lightweight modifiers**, not complex systems.
+* Rain reduces movement speed
 
 ---
 
 ## ⏱️ Simulation Model
 
-### Time Units
-
 * **Tick = 1 hour**
 
-### Structure
+Time structure:
 
-* Day → 9 hours
-* Week → 4 days
-* Month → 4 weeks
-* Year → 9 months
-
-This compressed scale ensures **frequent, observable changes**.
+* 1 day = 9 ticks
 
 ---
 
-## 📡 Event System
+### Tick Flow
 
-The simulation produces **human-readable events**.
+Each tick:
 
-### Principles
-
-1. Only meaningful events are shown
-2. Repetitive events are grouped
-3. Quiet periods are summarized
+1. Update environment
+2. Update all agents (sequentially)
+3. Resolve interactions (e.g. hunting)
+4. Generate events
 
 ---
 
-### Example
+## 📡 Event System (Minimal)
 
-```text
-[Day 2 | Morning]
+The simulation outputs **readable events**.
+
+---
+
+### Rules
+
+* Only meaningful events are shown
+* Identical events may be grouped
+
+---
+
+### Examples
+
+```
+[Day 1 | Day]
 
 - A deer is grazing
-- A wolf is patrolling nearby
+- A wolf spots a deer
+- The deer flees
 ```
 
----
-
-### Aggregation Example
-
-```text
+```
 - 3 deer are grazing
 ```
 
 ---
 
-### Quiet Period Example
+### Not Included (0.1.0)
 
-```text
-[Day 1 → Day 4]
-
-- The days pass quietly across the biome
-```
+* Quiet period summaries
+* Complex narration
+* Event history storage
 
 ---
 
-> Events should feel like a **live narrative**, not debug logs.
+## 🎮 Interaction
+
+### Mode
+
+* Simulation runs automatically
+* User can pause and enter commands
 
 ---
 
-## 🎮 Interaction Layer
-
-The simulation is **watch-first**, with optional interaction.
-
----
-
-### 👀 Watch Mode (Default)
-
-* Simulation runs continuously
-* Events stream in real time
-* No persistent input UI
-
----
-
-### ⌨️ Command Prompt
-
-Opened with:
-
-```text
-space
-```
-
-Example:
-
-```text
-[Day 3 | Dusk] > weather storm
-```
-
----
-
-### 🧩 Commands (0.1.0 Scope)
+### Commands (Minimal Set)
 
 #### Time
 
-```bash
-time forward <amount>
+```
 pause
 resume
 ```
@@ -238,232 +205,68 @@ resume
 
 #### Environment
 
-```bash
-weather <type>
-season <type>
+```
+weather rain
+weather clear
+time day
+time night
 ```
 
 ---
 
 #### Inspection
 
-```bash
+```
 list agents
 inspect <id>
 status
-summary
-history
 ```
 
 ---
 
-#### Events (Limited)
+### Behavior
 
-```bash
-event <type>
-```
-
-> Only a small set of predefined events is supported.
+* Simulation pauses while entering commands
+* Commands apply immediately
+* Output continues in event stream
 
 ---
 
-### ⚡ Interaction Model
+## 💾 Persistence (Minimal)
 
-* Commands are **temporary overlays**
-* Simulation pauses while typing
-* Results are **merged into the event stream**
+### Supported
 
----
-
-## 🖥️ Output Principles
-
-The terminal is the **primary interface**.
-
-### Goals
-
-* Readable at a glance
-* Narrative-style output
-* Minimal noise
-* Consistent formatting
+* Start simulation with a **seed**
+* Same seed → same initial world
 
 ---
 
-### Example
+### Not Included
 
-```text
-[Day 3 | Dusk]
-
-- A wolf spots a deer
-- The deer begins to flee
-- Rain begins to fall
-```
-
----
-
-Yes — that should be included, but kept **very narrow** for 0.1.0.
-
-You do not want “full save system” scope.
-You want **deterministic world persistence**.
-
-That means the goal is:
-
-> load the same world setup again, and optionally restore a simulation snapshot.
-
-For the scope doc, I’d add a section like this:
-
----
-
-## 💾 Persistence & Seeded Worlds
-
-The simulation supports **basic persistence** to ensure reproducibility and continuity.
-
-This is primarily intended for:
-
-* reloading the same generated world
-* continuing a previous simulation
-* reproducing interesting scenarios during testing
-
----
-
-### 🌱 Seeded World Generation
-
-World generation is deterministic.
-
-A world seed controls the initial setup, including:
-
-* resource placement
-* agent spawn positions
-* initial world conditions
-
-Using the same seed should produce the same starting world configuration.
-
-> Seeds are intended to make simulations reproducible for testing, debugging, and demo sharing.
-
----
-
-### 🗂️ Save Data
-
-Persistence is split into two levels:
-
-#### World Seed / Initial State
-
-Stores the information required to recreate the initial world:
-
-* seed
-* world settings
-* initial environment conditions
-* initial agent setup
-
-This allows the simulation to restart from the same baseline.
-
----
-
-#### Simulation Snapshot
-
-Stores the current state of a running simulation, such as:
-
-* current time
-* active world conditions
-* agent states
-* resource states
-* recent simulation state needed to resume execution
-
-This allows the simulation to continue from a previously saved point.
-
----
-
-### 🎯 0.1.0 Scope
-
-Persistence in 0.1.0 is intentionally limited.
-
-Supported goals:
-
-* create a world from a known seed
-* save the current simulation state
-* load a saved simulation state
-* reproduce the same starting world for testing
-
-Not required in 0.1.0:
-
-* version migration between incompatible save formats
-* partial save editing
-* multiple save slots UI
-* replay system
-* branching timelines
-* full historical reconstruction
-
----
-
-### 🧱 Design Principles
-
-* **Deterministic by default**
-  The same seed should recreate the same initial world
-
-* **Simple and inspectable**
-  Save data should be easy to understand and debug
-
-* **Practical over exhaustive**
-  Persistence should support demo and development needs, not full production save management
-
-* **Stable enough for iteration**
-  Saves should help contributors reproduce bugs and scenarios reliably
-
----
-
-### 🧪 Use Cases
-
-Examples of intended usage:
-
-* rerun the same world seed to compare behavior changes
-* save an interesting scenario and resume it later
-* share a seed that produces a notable predator-prey interaction
-* preserve simulation state during development and testing
-
----
-
-### 📌 Notes
-
-Persistence should be designed around the simulation’s core data model, not around terminal output.
-
-Logs and rendered event text are considered **derived output** and do not need to be stored as primary save data.
-
-This keeps it useful without exploding scope.
+* Replay system
+* Versioned saves
 
 ---
 
 ## 🧭 Design Principles
 
-* **Autonomy first**
-  The world runs meaningfully without input
-
-* **Emergence over scripting**
-  Behavior arises from systems
-
-* **Clarity over complexity**
-  Prefer simple, understandable systems
-
-* **Watch-first experience**
-  Output is the main product
-
-* **Fast iteration**
-  Short cycles, quick feedback
+* **Simple over complex**
+* **Observable over realistic**
+* **Deterministic where possible**
+* **Autonomous by default**
 
 ---
 
-### 🚧 Out of Scope (0.1.0)
-
-To keep the demo focused, the following are explicitly excluded:
+## 🚧 Out of Scope
 
 * Additional species
-* Reproduction systems
-* Advanced AI / learning
+* Reproduction
+* Advanced AI
 * Complex pathfinding
-* Inventory or crafting systems
-* Large-scale world simulation
-* GUI / TUI interfaces
-* Replay systems
-* Save migration/version compatibility guarantees
-* Time rewind
+* Inventory or crafting
+* Large worlds
+* GUI / TUI
+* Full persistence
 
 ---
 
@@ -471,17 +274,14 @@ To keep the demo focused, the following are explicitly excluded:
 
 The demo is successful if:
 
-* The simulation runs autonomously
-* Deer and wolves behave distinctly
-* Environment changes affect outcomes
-* Events form a clear, readable narrative
-* Users can influence the simulation meaningfully
-* The system remains stable over continuous runtime
+* The simulation runs without input
+* Deer flee from wolves
+* Wolves hunt deer
+* Environment affects behavior (e.g. night, rain)
+* Events are easy to read and understand
 
 ---
 
 ## 🧭 Summary
 
-This tech demo is:
-
-> A small, reactive ecosystem simulation that showcases Canopy’s ability to model autonomous systems and present them as a clear, live narrative in the terminal.
+> A small, deterministic ecosystem simulation that produces a clear, live narrative in the terminal.

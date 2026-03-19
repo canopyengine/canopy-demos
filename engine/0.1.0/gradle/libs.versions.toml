@@ -13,12 +13,8 @@ logback = "1.5.32"
 [libraries]
 
 # Canopy
-canopy-core = {module = "io.github.canopyengine:core", version.ref = "canopy"}
-canopy-app-core = {module = "io.github.canopyengine:app-core", version.ref = "canopy"}
-canopy-app-terminal = {module= "io.github.canopyengine:app-terminal", version.ref = "canopy"}
-canopy-input = {module = "io.github.canopyengine:input", version.ref = "canopy"}
-canopy-data-core = {module = "io.github.canopyengine:data-core", version.ref = "canopy"}
-
+canopy-engine = {module = "io.github.canopy:engine", version.ref = "canopy"}
+canopy-platforms-terminal = {module = "io.github.canopy:platforms-terminal", version.ref = "canopy"}
 # Kotlin
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 

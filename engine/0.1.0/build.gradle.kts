@@ -15,22 +15,13 @@ repositories {
 
 dependencies {
     // Canopy
+    implementation(libs.canopy.engine)
+    implementation(libs.canopy.platforms.terminal)
 
-    /// Core
-    implementation(libs.canopy.core)
-
-    /// App
-    implementation(libs.canopy.app.core)
-    implementation(libs.canopy.app.terminal)
-
-    /// Input
-    implementation(libs.canopy.input)
-
-    /// Data
-    implementation(libs.canopy.data.core)
-
+    // Logging
     runtimeOnly(libs.logback.classic)
 
+    // Testing
     testImplementation(kotlin("test"))
 }
 

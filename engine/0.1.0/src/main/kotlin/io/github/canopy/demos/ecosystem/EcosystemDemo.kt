@@ -1,10 +1,10 @@
 package io.github.canopy.demos.ecosystem
 
-import io.canopy.engine.app.core.screen.CanopyScreen
-import io.canopy.engine.app.headless.terminalApp
+import io.canopy.backends.terminal.app.terminalApp
+import io.canopy.engine.app.screen.Screen
 import io.github.canopy.demos.ecosystem.world.World
 
-class EcosystemDemo : CanopyScreen() {
+class EcosystemDemo : Screen() {
     // Set main structure
     override fun setup() {
         World("Ecosystem Demo").asSceneRoot()

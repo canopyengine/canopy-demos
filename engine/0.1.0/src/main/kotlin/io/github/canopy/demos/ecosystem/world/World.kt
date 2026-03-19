@@ -41,6 +41,7 @@ class World(
                     "weather" to config.weather,
                 ) { "Loaded config!" }
             },
+
         )
 
 
