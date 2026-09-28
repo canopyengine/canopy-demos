@@ -27,7 +27,7 @@ dependencies {
 
 kotlin {
     jvmToolchain{
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(25)
     }
 }
 

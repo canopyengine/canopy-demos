@@ -11,4 +11,4 @@ enum class WeatherType {
     STORMY,
 }
 
-class Weather : Node<Weather>("weather", {})
+class Weather : Node<Weather>("weather")
