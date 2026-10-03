@@ -1,0 +1,35 @@
+name: Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Gradle build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/prepare
+      - name: Build and check formatting
+        working-directory: engine/0.1.0
+        run: ./gradlew ktlintCheck build --no-daemon --stacktrace
+  dependency-submission:
+    name: Dependency submission
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/prepare
+      - name: Generate and submit demo dependency graph
+        uses: gradle/actions/dependency-submission@v6.3.0
+        with:
+          build-root-directory: engine/0.1.0

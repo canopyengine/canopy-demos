@@ -1,3 +1,9 @@
+# Proposed ecosystem gameplay
+
+This document is a design proposal. The current 0.1.0-dev2 demo only loads
+configuration and builds placeholder nodes; the systems below are not implemented.
+See [current status](README.md).
+
 # 🌿 Ecosystem Simulation — Tech Demo (v0.1.0)
 
 A minimal, terminal-based ecosystem simulation focused on **clarity, autonomy, and observable behavior**.

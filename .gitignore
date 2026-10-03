@@ -27,3 +27,9 @@ replay_pid*
 .kotlin/
 /.idea/
 /.canopy/
+
+# Gradle wrapper is source; build/runtime outputs are not.
+!engine/0.1.0/gradle/wrapper/gradle-wrapper.jar
+**/.gradle/
+**/build/
+**/.canopy/
