@@ -1,79 +1,48 @@
-# 🌿 Ecosystem Simulation (0.1.0 Tech Demo)
+# Ecosystem demo scaffold
 
-A terminal-based simulation where animals live, hunt, and survive in a dynamic ecosystem.
+Targets **Canopy 0.1.0-dev2** with Kotlin2.4.10 and JDK25.
 
-Watch behavior emerge naturally or step in and affect it.
+## Implemented
 
----
+- Terminal application and screen setup.
+- A World node loading `src/main/resources/config.toml` with Toml.
+- A Context provider exposing SimulationData to a Simulation child.
+- Configuration and ready logging.
 
-## 🐾 What’s in the Simulation?
+Configuration contains grass, trees, rivers, rabbits, foxes and weather.
+CommandHandler, EventLogger, Narrator and Weather are placeholders. There is no
+playable simulation, animal decision loop, calendar, command parser or narrated
+terminal view yet. See [the proposed technical outline](tech-outline.md).
 
-### Agents
+## Build and run
 
-* **Deer** 🦌
-  Peaceful animals that eat, rest, and try to stay safe.
+First clone the engine and publish the matching snapshot:
 
-* **Wolves** 🐺
-  Predators that hunt deer and compete for survival.
-
-Each agent acts on its own based on internal needs like hunger, thirst, and safety.
-
----
-
-## 🌍 The World
-
-The environment directly affects how agents behave:
-
-* 🌱 Food grows and runs out
-* 💧 Water can be crowded or dry up
-* 🌳 Trees and vegetation provide shelter
-* 🌦️ Weather changes over time
-* 🌙 Day and night influence behavior
-
----
-
-## ⏱️ Time
-
-The simulation runs in **ticks (hours)** and progresses automatically:
-
-* 1 Day = 9 hours
-* 1 Week = 4 days
-* 1 Month = 4 weeks
-
-Time is compressed so interesting things happen faster.
-
----
-
-## 📊 What You’ll See
-
-The simulation logs important events as summaries:
-
-```
-[Day 5]
-- A deer escaped a wolf
-
-[Week 1]
-- A storm destroyed a tree
+```sh
+git clone https://github.com/canopyengine/canopy.git
+cd canopy
+git checkout 27019353589d8eb36adb04e387ca6749a0d5379f
+./gradlew publishToMavenLocal
 ```
 
-If nothing interesting happens, time skips ahead.
+From this demo directory (`canopy-demos/engine/0.1.0`):
 
----
+```sh
+./gradlew ktlintCheck assemble
+./gradlew run
+```
 
-## 🎮 Interact with the World
+On Windows use `gradlew.bat`. This repository has no root Gradle project.
+The terminal app runs until Ctrl+C; it does not currently draw a simulation view.
+Diagnostics are under `.canopy/logs/` relative to the working directory.
 
-You can influence the simulation at any time:
+Artifacts use `io.canopy:engine:0.1.0-dev2` and
+`io.canopy:platforms-terminal:0.1.0-dev2` from `mavenLocal()`. Desktop is
+currently disabled in the engine; this demo does not require it.
 
-* Change the weather
-* Fast-forward or rewind time
-* Trigger special events
+## Quality and CI
 
----
-
-## ✨ What This Demo Shows
-
-* Autonomous agent behavior
-* Dynamic environments
-* Emergent storytelling through logs
-
----
+Use `./gradlew ktlintFormat` to apply the engine formatting conventions and
+`./gradlew ktlintCheck` to check them. CI runs the Gradle build and CodeQL from
+this directory after publishing the pinned engine snapshot locally.
+Dependency submission runs only on pushes to main with write permission.

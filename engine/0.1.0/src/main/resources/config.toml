@@ -7,4 +7,4 @@ rabbits = 5
 foxes = 2
 
 # Weather
-weather = "SUNNY" # rainy | cloudy | cold | hot
+weather = "SUNNY" # SUNNY | SNOWY | RAINY | STORMY

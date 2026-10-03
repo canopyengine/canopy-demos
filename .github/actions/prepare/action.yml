@@ -1,0 +1,25 @@
+name: Prepare demo build
+description: Install JDK and publish the pinned engine snapshot used by the demo.
+runs:
+  using: composite
+  steps:
+    - uses: actions/checkout@v7
+      with:
+        repository: canopyengine/canopy
+        ref: 27019353589d8eb36adb04e387ca6749a0d5379f
+        path: .engine-source
+        persist-credentials: false
+    - uses: actions/setup-java@v6
+      with:
+        distribution: temurin
+        java-version: '25'
+    - uses: gradle/actions/setup-gradle@v6.3.0
+    - name: Publish engine dependencies
+      shell: bash
+      working-directory: .engine-source
+      run: |
+        chmod +x gradlew
+        ./gradlew publishToMavenLocal --no-daemon --stacktrace
+    - name: Make demo wrapper executable
+      shell: bash
+      run: chmod +x engine/0.1.0/gradlew
