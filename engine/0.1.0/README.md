@@ -12,7 +12,14 @@ Targets **Canopy 0.1.0-dev2** with Kotlin2.4.10 and JDK25.
 Configuration contains grass, trees, rivers, rabbits, foxes and weather.
 CommandHandler, EventLogger, Narrator and Weather are placeholders. There is no
 playable simulation, animal decision loop, calendar, command parser or narrated
-terminal view yet. See [the proposed technical outline](tech-outline.md).
+terminal view yet. See [the 0.1.0 technical outline](tech-outline.md).
+
+The planned slice uses rabbits and foxes, grass/water/cover, nine day phases,
+naturally changing clear/rain weather, and a live command overlay with minimum
+declarative UI and adaptive terminal layout. These are planned features, not
+capabilities of this pinned scaffold. Its weather configuration still accepts
+`SUNNY`, `SNOWY`, `RAINY` and `STORMY`; aligning it to clear/rain and adopting the
+integrated engine requires a separate code/configuration migration.
 
 ## Build and run
 
