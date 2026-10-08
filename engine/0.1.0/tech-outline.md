@@ -1,293 +1,180 @@
-# Proposed ecosystem gameplay
-
-This document is a design proposal. The current 0.1.0-dev2 demo only loads
-configuration and builds placeholder nodes; the systems below are not implemented.
-See [current status](README.md).
-
-# 🌿 Ecosystem Simulation — Tech Demo (v0.1.0)
-
-A minimal, terminal-based ecosystem simulation focused on **clarity, autonomy, and observable behavior**.
-
----
-
-## 🎯 Goal
-
-Create a small simulation where:
-
-* Agents act autonomously
-* The environment affects outcomes
-* Events form a clear, readable narrative
-
-> This is a **tech demo**, not a full system.
-
----
-
-## 🧩 Core Systems
-
-The simulation consists of:
-
-1. **Agents** — entities with simple behavior
-2. **Environment** — resources and conditions
-3. **Simulation Loop** — time progression
-
----
-
-## 🐾 Agents
-
-### Types
-
-* **Deer**
-
-  * Passive
-  * Seek food and water
-  * Flee when threatened
-
-* **Wolves**
-
-  * Predators
-  * Hunt deer for food
-
----
-
-### 🧠 Decision Model (Simplified)
-
-Agents use a **priority + override system**:
-
-1. Choose the most critical need:
-
-  * Hunger
-  * Thirst
-  * Energy
-
-2. Override with **fear** if danger is nearby:
-
-  * Deer flee from wolves
-  * Wolves may chase prey
-
-> No planning, learning, or complex AI.
-
----
-
-### ⚙️ Behavior Rules
-
-* Agents move randomly when idle
-* Agents interact only with nearby entities
-* Agents lose energy over time
-* Agents die when energy reaches zero
-
----
-
-## 🌍 Environment
-
-### World Model
-
-* Simple **2D grid**
-* Agents occupy positions
-* Interactions occur within a fixed radius
-
----
-
-### Resources
-
-* **Food**
-
-  * Limited
-  * Regenerates slowly
-
-* **Water**
-
-  * Fixed locations
-  * Shared by all agents
-
-* **Cover**
-
-  * Reduces chance of being detected
-
----
-
-## 🌦️ Conditions (Minimal)
-
-Only two environmental modifiers:
-
-### Time of Day
-
-* Day
-* Night
-
-Effect:
-
-* Night reduces visibility
-
----
-
-### Weather
-
-* Clear
-* Rain
-
-Effect:
-
-* Rain reduces movement speed
-
----
-
-## ⏱️ Simulation Model
-
-* **Tick = 1 hour**
-
-Time structure:
-
-* 1 day = 9 ticks
-
----
-
-### Tick Flow
-
-Each tick:
-
-1. Update environment
-2. Update all agents (sequentially)
-3. Resolve interactions (e.g. hunting)
-4. Generate events
-
----
-
-## 📡 Event System (Minimal)
-
-The simulation outputs **readable events**.
-
----
-
-### Rules
-
-* Only meaningful events are shown
-* Identical events may be grouped
-
----
-
-### Examples
-
-```
-[Day 1 | Day]
-
-- A deer is grazing
-- A wolf spots a deer
-- The deer flees
+# Ecosystem simulation: 0.1.0 technical outline
+
+## Status and purpose
+
+This is the agreed gameplay scope, not a description of implemented features.
+The [current scaffold](README.md) loads configuration and constructs placeholder
+nodes against a pinned Canopy 0.1.0-dev2 snapshot. It does not yet implement
+agents, commands, a calendar, resource interactions or a rendered ecosystem.
+Migration to the integrated engine is an implementation task; this outline does
+not change the dependency pin or configuration schema.
+
+The demo should validate a terminal-ready engine through a small autonomous
+world that players influence with commands. Use existing engine systems for
+lifecycle, reactive state, terminal input and declarative UI. Keep ecological
+rules in the demo unless implementation reveals a reusable engine capability.
+
+## World and resources
+
+Use a bounded, small two-dimensional grid with rabbits and foxes. Grid edges
+prevent movement outside the world; movement and proximity queries do not need
+a physics backend. Multiple agents may share a cell so crowding does not require
+collision resolution or pathfinding.
+
+- Grass patches supply finite food for rabbits and regenerate slowly to a cap.
+- Fixed river cells supply water to both species without depletion in this slice.
+- Trees supply cover from the start. An agent in cover has a reduced detection
+  radius against it; cover does not create impassable terrain or require navigation.
+- Foxes obtain food by catching rabbits; there is no separate fox food resource.
+
+Night reduces visibility. Cover applies an additional deterministic detection
+modifier. A nearby predator may still detect a rabbit in cover; cover is not
+absolute protection. Rain reduces movement frequency using a deterministic
+cooldown, rather than fractional coordinates or an extra movement system.
+
+Grid dimensions, starting counts, resource caps, detection radii and cooldowns
+are proposed tunable parameters. Initial balancing should keep both species
+observable for several days, without promising indefinite population stability.
+
+## Agent decisions and interactions
+
+Each living agent has hunger, thirst and energy. Hunger and thirst increase with
+ticks; energy is spent by activity and restored by resting. Zero energy makes an
+agent rest rather than die immediately. Death occurs on a successful hunt or
+when a tunable starvation/dehydration threshold is reached.
+
+Rabbits first flee a detected nearby fox, then satisfy their most urgent need:
+drink at water, eat available grass, or rest to recover energy. Foxes seek water
+when thirst is most urgent, hunt detected rabbits when hungry, and rest when
+energy is low. Otherwise agents wander one neighboring cell using seeded
+randomness. Break equal-distance and equal-priority choices in a stable order.
+A thirsty fox is not required to pursue every rabbit it encounters.
+
+Keep hunting simple: after movement, an eligible fox sharing a cell with a live
+rabbit catches one rabbit, removes it once, and reduces the fox's hunger. Resolve
+competing foxes and prey by stable agent IDs. A fox cannot consume the same prey
+again or take multiple prey in one tick. Fleeing moves away from a detected fox
+when a legal neighboring step is available; there is no planning or learning.
+
+These needs, thresholds and hunt rules are proposed implementation defaults,
+not final balance values. Cover and rain must affect observable outcomes without
+introducing complex terrain, probabilistic hit systems or advanced AI.
+
+## Clock and weather
+
+One tick advances one day phase, not one hour. A day consists of nine ticks:
+
+| Tick within day | Phase | Visibility |
+| --- | --- | --- |
+| 1 | Dawn | Day |
+| 2 | Early morning | Day |
+| 3 | Late morning | Day |
+| 4 | Midday | Day |
+| 5 | Afternoon | Day |
+| 6 | Dusk | Day |
+| 7 | Early night | Night |
+| 8 | Midnight | Night |
+| 9 | Late night | Night |
+
+After late night, advance to dawn of the next day. Configure the real-time
+interval between ticks separately from ecological rates and phase definitions.
+Pausing stops simulation ticks while input and rendering continue.
+
+The initial weather scope is clear and rain. Weather changes naturally using a
+seeded, configurable schedule. `weather clear` or `weather rain` sets the current
+condition at the command boundary, then starts its normal dwell period; natural
+changes continue afterwards. No permanent weather lock is implied. `time day`
+moves to early morning and `time night` to early night, keeping the current day
+number; subsequent ticks resume the normal phase sequence.
+
+The committed scaffold currently accepts `SUNNY`, `SNOWY`, `RAINY` and `STORMY`.
+Implementing this outline requires mapping `SUNNY` to clear and `RAINY` to rain,
+and defining a clear migration/validation policy for snow and storm. They are
+not additional planned simulation conditions.
+
+## Tick ordering and determinism
+
+Use a seeded world-local random source and stable iteration by agent/resource ID.
+At a tick boundary:
+
+1. Apply queued state-changing commands in arrival order.
+2. Advance the phase, natural weather and grass regeneration.
+3. Update needs, choose actions and move living agents in stable order.
+4. Resolve drinking, feeding, resting and hunting in a defined stable order.
+5. Resolve threshold deaths and remove dead agents exactly once.
+6. Publish state and meaningful events to the UI.
+
+A dead agent cannot act later in the same tick. Newly removed agents must not
+invalidate iteration. Sequential update order is an explicit rule of this small
+demo, rather than a claim that all actions happen simultaneously.
+
+The same seed, configuration and tick-indexed ordered command sequence must
+produce the same simulation state and events. Real-time typing or scheduler
+speed alone is not a deterministic input. This is a testability contract, not a
+replay or recording feature. Pause/resume and quit are immediate control commands;
+while paused, environment commands apply in order without advancing a tick.
+
+## Terminal interaction and minimum UI
+
+The simulation runs automatically. A bottom command overlay captures typed
+command input while open, preventing typed keys from triggering gameplay actions.
+Simulation continues while typing. Players may opt into pause-on-open; closing
+the overlay then restores the prior running/paused state rather than overriding
+an explicit pause. `pause` and `resume` remain available regardless of that option.
+
+Use the minimum shared declarative UI for a compact world/status view, bounded
+recent events and command-editor focus. Layout and sizes adapt to terminal
+resizing, including a readable compact presentation in small terminals. Show day,
+phase, weather, running/paused state and rabbit/fox counts. Inspection exposes
+agent ID, position, current action and needs. A sophisticated map renderer is not
+a prerequisite for understanding the world.
+
+| Command | Behavior |
+| --- | --- |
+| `pause` / `resume` | Stop or restart ticks explicitly |
+| `weather clear` / `weather rain` | Set weather now; natural evolution continues |
+| `time day` / `time night` | Set early morning/early night; the clock continues |
+| `list agents` | List living agents with stable IDs and species |
+| `inspect <id>` | Show one agent's state or a clear missing-ID message |
+| `status` | Show environment, population and simulation state |
+| `quit` | Exit through normal engine cleanup |
+
+Commands report invalid arguments clearly. Inspection reads current state;
+state-changing commands use the boundary described above so updates do not race
+agent iteration. No general scripting language is required.
+
+## Events
+
+Emit useful transitions: detection, fleeing, a successful hunt, death, weather
+changes and command results. Avoid emitting identical idle activity every tick.
+Keep a bounded in-memory recent-event list for the UI; persistent event history,
+replay files, quiet-period summaries and a narration framework are out of scope.
+
+For example:
+
+```text
+Day 2 · Dusk · Rain · Running
+Rabbits: 5 · Foxes: 2
+Rabbit #4 retreats into cover.
+Fox #7 catches rabbit #2.
 ```
 
-```
-- 3 deer are grazing
-```
+## Completion checks
 
----
+- A seeded world runs autonomously with grass, water and cover from the first slice.
+- Rabbits feed, drink, rest and flee; foxes drink, rest and hunt; deaths release nodes.
+- Day phases, clear/rain and cover alter the intended behavior observably.
+- Identical deterministic inputs reproduce state and event sequences.
+- Commands work while ticks continue; explicit pause/resume and optional
+  pause-on-open preserve the intended simulation state.
+- Status, events and command focus remain usable after terminal resizing.
+- Invalid commands and inspection of removed agents are safe; quit cleans up normally.
+- A fresh project can build against the chosen matching engine/compiler artifacts.
 
-### Not Included (0.1.0)
+## Outside this release
 
-* Quiet period summaries
-* Complex narration
-* Event history storage
-
----
-
-## 🎮 Interaction
-
-### Mode
-
-* Simulation runs automatically
-* User can pause and enter commands
-
----
-
-### Commands (Minimal Set)
-
-#### Time
-
-```
-pause
-resume
-```
-
----
-
-#### Environment
-
-```
-weather rain
-weather clear
-time day
-time night
-```
-
----
-
-#### Inspection
-
-```
-list agents
-inspect <id>
-status
-```
-
----
-
-### Behavior
-
-* Simulation pauses while entering commands
-* Commands apply immediately
-* Output continues in event stream
-
----
-
-## 💾 Persistence (Minimal)
-
-### Supported
-
-* Start simulation with a **seed**
-* Same seed → same initial world
-
----
-
-### Not Included
-
-* Replay system
-* Versioned saves
-
----
-
-## 🧭 Design Principles
-
-* **Simple over complex**
-* **Observable over realistic**
-* **Deterministic where possible**
-* **Autonomous by default**
-
----
-
-## 🚧 Out of Scope
-
-* Additional species
-* Reproduction
-* Advanced AI
-* Complex pathfinding
-* Inventory or crafting
-* Large worlds
-* GUI / TUI
-* Full persistence
-
----
-
-## 🧪 Success Criteria
-
-The demo is successful if:
-
-* The simulation runs without input
-* Deer flee from wolves
-* Wolves hunt deer
-* Environment affects behavior (e.g. night, rain)
-* Events are easy to read and understand
-
----
-
-## 🧭 Summary
-
-> A small, deterministic ecosystem simulation that produces a clear, live narrative in the terminal.
+Additional species, reproduction, large worlds, complex pathfinding, learning,
+inventory/crafting, desktop UI, advanced TUI widgets, physics, audio, durable
+saves, replay and a general narration system are outside this slice. A seed is
+startup configuration, not persistence. Do not expand the engine just to model
+features the initial ecosystem does not need.

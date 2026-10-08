@@ -5,7 +5,10 @@ Examples for the experimental Canopy engine. The committed project in
 
 The ecosystem example currently loads TOML configuration, creates a scene and
 passes data through Context. Simulation, commands and narration are placeholders.
-The [technical outline](engine/0.1.0/tech-outline.md) describes proposed gameplay.
+The [technical outline](engine/0.1.0/tech-outline.md) defines the planned 0.1.0
+slice: rabbits and foxes, cover, nine day phases, naturally evolving clear/rain
+weather and a live command overlay with adaptive declarative UI. The code has not
+yet migrated to the integrated engine or implemented this gameplay.
 
 Use JDK25 and the project Gradle9.8.0 wrapper. Publish the matching engine
 locally before compiling; [project instructions](engine/0.1.0/README.md) include
