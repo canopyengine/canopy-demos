@@ -159,6 +159,44 @@ Rabbit #4 retreats into cover.
 Fox #7 catches rabbit #2.
 ```
 
+## Provisional launch and build/deployment targets
+
+These are planning targets, not measured Canopy performance or established Unity/Godot
+benchmarks. The game remains a scaffold; validate the targets with the implemented
+slice before claiming they are met.
+
+For launch, assume a modern laptop with an SSD, a bundled JVM, local assets and no
+startup network request. Measure player process start to the first usable screen,
+excluding installation and Gradle compilation. Target **0.5–2 seconds**. The initial
+component budget is JVM/class loading 150–600 ms, engine/logging/input 50–200 ms,
+world/assets 100–500 ms and at most 17 ms to the first frame at 60 FPS: a theoretical
+317–1,317 ms sum, with margin in the launch target.
+
+For build/deployment, assume cached tooling/dependencies, an available CI worker,
+150 MB of game content plus an assumed 80 MB bundled runtime, and effective upload
+throughput of 10 MB/s. These sizes are an illustrative comparison workload, not a
+required size for this terminal demo or a measured Canopy distribution size.
+
+| Stage | Initial budget |
+| --- | ---: |
+| Build | 60 seconds |
+| Tests | 90 seconds |
+| Package | 10 seconds |
+| Upload: 230 MB / 10 MB/s | 23 seconds |
+| Total | 183 seconds (about 3 minutes) |
+
+The deployment budget excludes CI queueing, manual approval, signing and store
+processing. Cold builds also download dependencies and initialize tooling. Keep
+build/package time separate from tests and upload when comparing engines.
+
+The final comparative target is to match or beat comparable Unity and Godot
+build/package times on the same hardware, target platform and representative
+workload, with equivalent cache conditions. Project size alone is insufficient:
+assets, code, scripting backend and packaging differ. No numerical competitor
+baseline has been measured yet, so the provisional 60-second build and 10-second
+package budgets are not a claim of parity. A terminal-only demo cannot establish
+performance parity for graphical indie games.
+
 ## Completion checks
 
 - A seeded world runs autonomously with grass, water and cover from the first slice.
