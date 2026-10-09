@@ -6,13 +6,15 @@ runs:
     - uses: actions/checkout@v7
       with:
         repository: canopyengine/canopy
-        ref: 27019353589d8eb36adb04e387ca6749a0d5379f
+        ref: 61122d43706ee9e1e4aa78c84764545be2f46ee9
         path: .engine-source
         persist-credentials: false
     - uses: actions/setup-java@v6
       with:
         distribution: temurin
-        java-version: '25'
+        java-version: |
+          25
+          17
     - uses: gradle/actions/setup-gradle@v6.3.0
     - name: Publish engine dependencies
       shell: bash

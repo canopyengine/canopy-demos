@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.ktlint)
+    alias(libs.plugins.canopy.compiler)
     application
 }
 
@@ -23,6 +24,7 @@ dependencies {
 kotlin { jvmToolchain(25) }
 
 application {
+    applicationName = "canopy-ecosystem-demo"
     mainClass.set("io.github.canopy.demos.ecosystem.EcosystemDemoKt")
 }
 
