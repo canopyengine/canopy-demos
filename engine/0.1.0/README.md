@@ -1,6 +1,7 @@
 # Ecosystem demo scaffold
 
-Targets **Canopy 0.1.0-dev2** with Kotlin2.4.10. Install JDK17 for the compiler tooling
+Targets the foundation integration's **Canopy 0.1.0-alpha.2** with Kotlin2.4.10.
+Install JDK17 for the compiler tooling
 and Gradle host, plus JDK25 for engine/game compilation and execution.
 
 ## Implemented
@@ -24,15 +25,13 @@ new weather model requires a separate code/configuration migration.
 
 ## Build and run
 
-First clone the engine and publish the matching namespace-migration revision.
-This revision is under review in [engine PR #214](https://github.com/canopyengine/canopy/pull/214);
-it is not yet a published Central release. The predecessor `9c1e0f9` still publishes the old namespace and cannot build this
-consumer. Until Maven Central publication, local publication remains required:
+First clone the engine and publish the matching foundation integration revision.
+It is on a side branch and is not yet merged or published on Maven Central:
 
 ```sh
 git clone https://github.com/canopyengine/canopy.git
 cd canopy
-git checkout 61122d43706ee9e1e4aa78c84764545be2f46ee9
+git checkout 5b50eff3ce58b83a31ced64a89b150e0b476dce3
 ./gradlew publishToMavenLocal
 ```
 
@@ -40,19 +39,39 @@ From this demo directory (`canopy-demos/engine/0.1.0`):
 
 ```sh
 ./gradlew ktlintCheck assemble
-./gradlew run
+java CanopyLaunch.java
 ```
 
-On Windows use `gradlew.bat`. This repository has no root Gradle project.
+On Windows use `gradlew.bat` for Gradle commands; the Java launch command is the
+same on Windows, Linux and macOS. This repository has no root Gradle project.
+The launcher uses the project's wrapper to build `installDist`, then starts the
+game's Java runtime directly with inherited terminal input. Avoid `gradlew run`
+for live terminal testing because Gradle owns that process's input.
 The terminal app runs until Ctrl+C; it does not currently draw a simulation view.
 Diagnostics are under `.canopy/logs/` relative to the working directory.
 
-Artifacts use `io.github.canopyengine:engine:0.1.0-dev2` and
-`io.github.canopyengine:platforms-terminal:0.1.0-dev2` from `mavenLocal()`.
+Artifacts use `io.github.canopyengine:engine:0.1.0-alpha.2` and
+`io.github.canopyengine:platforms-terminal:0.1.0-alpha.2` from `mavenLocal()`.
 The matching `io.github.canopyengine.compiler` Gradle plugin is applied and
 resolved through `mavenLocal()` in `pluginManagement`. Kotlin package imports
-remain `io.canopy.*`; only Maven coordinates and the plugin ID change. Desktop is
-currently disabled in the engine; this demo does not require it.
+remain `io.canopy.*`. The scaffold's existing Kotlin sources compile unchanged;
+the integration also provides the new UiNode system for future demo work.
+Desktop is currently disabled in the engine; this demo does not require it.
+
+If using the engine's `stageCentralPublication` task instead of Maven Local,
+select its repository explicitly for both the compiler plugin and libraries:
+
+```sh
+java CanopyLaunch.java --gradle-arg "-PcanopyRepository=file:///absolute/path/to/canopy/build/central-repository"
+```
+
+On Windows the URI has the form `file:///C:/path/to/canopy/build/central-repository`.
+Quote the whole argument when the path contains spaces. To build without
+launching, pass the same `-PcanopyRepository=...` argument to Gradle. An explicit
+repository takes precedence over Maven Local so stale local artifacts do not
+shadow it. Staging or publishing matching artifacts is still required.
+`CanopyLaunch.java` is copied from engine commit `5b50eff`; keep it aligned with
+the engine launcher when updating the pinned integration revision.
 
 ## Quality and CI
 
