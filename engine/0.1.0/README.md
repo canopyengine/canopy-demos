@@ -31,7 +31,7 @@ It is on a side branch and is not yet merged or published on Maven Central:
 ```sh
 git clone https://github.com/canopyengine/canopy.git
 cd canopy
-git checkout 5b50eff3ce58b83a31ced64a89b150e0b476dce3
+git checkout e776bfc715f105543d1120ac4ea325c7dde776e0
 ./gradlew publishToMavenLocal
 ```
 
@@ -45,9 +45,14 @@ java CanopyLaunch.java
 On Windows use `gradlew.bat` for Gradle commands; the Java launch command is the
 same on Windows, Linux and macOS. This repository has no root Gradle project.
 The launcher uses the project's wrapper to build `installDist`, then starts the
-game's Java runtime directly with inherited terminal input. Avoid `gradlew run`
+game's Java runtime directly in a separate terminal window with native input. Avoid `gradlew run`
 for live terminal testing because Gradle owns that process's input.
-The terminal app runs until Ctrl+C; it does not currently draw a simulation view.
+Every launch opens a new window, and Ctrl+C closes the app and that window.
+Colors follow the terminal capabilities. Windows uses its native console, macOS
+uses Terminal (allow Automation permission if requested), and Linux needs a
+desktop with kitty, alacritty or xterm. Use `java CanopyLaunch.java --current-terminal`
+for CI, SSH or testing in the current terminal. The scaffold does not currently
+draw a simulation view.
 Diagnostics are under `.canopy/logs/` relative to the working directory.
 
 Artifacts use `io.github.canopyengine:engine:0.1.0-alpha.2` and
@@ -70,7 +75,7 @@ Quote the whole argument when the path contains spaces. To build without
 launching, pass the same `-PcanopyRepository=...` argument to Gradle. An explicit
 repository takes precedence over Maven Local so stale local artifacts do not
 shadow it. Staging or publishing matching artifacts is still required.
-`CanopyLaunch.java` is copied from engine commit `5b50eff`; keep it aligned with
+`CanopyLaunch.java` is copied from engine commit `e776bfc`; keep it aligned with
 the engine launcher when updating the pinned integration revision.
 
 ## Quality and CI
