@@ -16,7 +16,7 @@ project Gradle9.8.0 wrapper. Publish the matching engine
 locally before compiling; [project instructions](engine/0.1.0/README.md) include
 exact commands. CI builds the demo, runs ktlint, submits dependencies on main
 pushes and scans Java/Kotlin with CodeQL. It builds engine snapshot commit
-`f89204d454888c158aed9ed241d833064fb2bc75` as a reproducible dependency.
+`dbfb8d7add6c2721a732f31f47ce3a8c5c0f1d51` as a reproducible dependency.
 This integration is not yet merged or published on Maven Central. The project
 includes the bare Java launcher for native terminal input; see its instructions.
 
