@@ -1,0 +1,13 @@
+[versions]
+kotlin = "2.4.10"
+canopy = "0.1.0-alpha.2"
+logback = "1.6.3"
+
+[libraries]
+canopy-engine = { module = "io.github.canopyengine:engine", version.ref = "canopy" }
+canopy-terminal = { module = "io.github.canopyengine:platforms-terminal", version.ref = "canopy" }
+logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+canopy-compiler = { id = "io.github.canopyengine.compiler", version.ref = "canopy" }
