@@ -1,6 +1,6 @@
 # Ecosystem demo scaffold
 
-Targets the foundation integration's **Canopy 0.1.0-alpha.2** with Kotlin2.4.10.
+Targets the foundation integration's **Canopy 0.1.0-dev4** with Kotlin2.4.10.
 Install JDK17 for the compiler tooling
 and Gradle host, plus JDK25 for engine/game compilation and execution.
 
@@ -31,7 +31,7 @@ It is on a side branch and is not yet merged or published on Maven Central:
 ```sh
 git clone https://github.com/canopyengine/canopy.git
 cd canopy
-git checkout dbfb8d7add6c2721a732f31f47ce3a8c5c0f1d51
+git checkout d96056cbe9b15d432523e8d7d53bcd1c08534743
 ./gradlew publishToMavenLocal
 ```
 
@@ -55,8 +55,8 @@ for CI, SSH or testing in the current terminal. The scaffold does not currently
 draw a simulation view.
 Diagnostics are under `.canopy/logs/` relative to the working directory.
 
-Artifacts use `io.github.canopyengine:engine:0.1.0-alpha.2` and
-`io.github.canopyengine:platforms-terminal:0.1.0-alpha.2` from `mavenLocal()`.
+Artifacts use `io.github.canopyengine:engine:0.1.0-dev4` and
+`io.github.canopyengine:platforms-terminal:0.1.0-dev4` from `mavenLocal()`.
 The matching `io.github.canopyengine.compiler` Gradle plugin is applied and
 resolved through `mavenLocal()` in `pluginManagement`. Kotlin package imports
 remain `io.canopy.*`. The scaffold's existing Kotlin sources compile unchanged;

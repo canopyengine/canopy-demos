@@ -4,7 +4,7 @@
 
 This is the agreed gameplay scope, not a description of implemented features.
 The [current scaffold](README.md) loads configuration and constructs placeholder
-nodes against the pinned Canopy 0.1.0-alpha.2 foundation integration. It already
+nodes against the pinned Canopy 0.1.0-dev4 foundation integration. It already
 uses matching engine/compiler artifacts, but does not yet implement agents,
 commands, a calendar, resource interactions or a rendered ecosystem. This outline
 specifies gameplay work; it does not change the dependency pin or configuration schema.

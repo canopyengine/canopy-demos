@@ -1,6 +1,6 @@
 [versions]
 kotlin = "2.4.10"
-canopy = "0.1.0-alpha.2"
+canopy = "0.1.0-dev4"
 logback = "1.6.3"
 
 [libraries]

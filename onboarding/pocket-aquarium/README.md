@@ -8,10 +8,9 @@ Open `starter/` as the Gradle project. Dependency versions live in
 compilation. The Gradle wrapper works on Windows (`gradlew.bat`), Linux and macOS
 (`./gradlew`).
 
-Canopy `0.1.0-alpha.2` currently requires matching locally published engine and
+Canopy `0.1.0-dev4` currently requires matching locally published engine and
 compiler artifacts. Follow the existing [local publication instructions](../../engine/0.1.0/README.md#build-and-run),
-using the current foundation integration revision instead of the older ecosystem
-snapshot. Alternatively, pass `-PcanopyRepository=file:///path/to/repository`
+using the pinned foundation integration revision. Alternatively, pass `-PcanopyRepository=file:///path/to/repository`
 to select a staged Maven repository.
 
 From `starter/`, run `./gradlew build` to check the skeleton. There is no runnable

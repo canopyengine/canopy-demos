@@ -2,7 +2,7 @@
 
 Examples for the experimental Canopy engine. The committed project in
 [engine/0.1.0](engine/0.1.0/README.md) targets the foundation integration's
-**0.1.0-alpha.2** artifacts on this side branch.
+**0.1.0-dev4** artifacts on this side branch.
 
 The ecosystem example currently loads TOML configuration, creates a scene and
 passes data through Context. Simulation, commands and narration are placeholders.
@@ -16,7 +16,7 @@ project Gradle9.8.0 wrapper. Publish the matching engine
 locally before compiling; [project instructions](engine/0.1.0/README.md) include
 exact commands. CI builds the demo, runs ktlint, submits dependencies on main
 pushes and scans Java/Kotlin with CodeQL. It builds engine snapshot commit
-`dbfb8d7add6c2721a732f31f47ce3a8c5c0f1d51` as a reproducible dependency.
+`d96056cbe9b15d432523e8d7d53bcd1c08534743` as a reproducible dependency.
 This integration is not yet merged or published on Maven Central. The project
 includes the bare Java launcher for native terminal input; see its instructions.
 
