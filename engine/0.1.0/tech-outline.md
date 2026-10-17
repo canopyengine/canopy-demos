@@ -4,10 +4,10 @@
 
 This is the agreed gameplay scope, not a description of implemented features.
 The [current scaffold](README.md) loads configuration and constructs placeholder
-nodes against a pinned Canopy 0.1.0-dev2 snapshot. It does not yet implement
-agents, commands, a calendar, resource interactions or a rendered ecosystem.
-Migration to the integrated engine is an implementation task; this outline does
-not change the dependency pin or configuration schema.
+nodes against the pinned Canopy 0.1.0-dev4 foundation integration. It already
+uses matching engine/compiler artifacts, but does not yet implement agents,
+commands, a calendar, resource interactions or a rendered ecosystem. This outline
+specifies gameplay work; it does not change the dependency pin or configuration schema.
 
 The demo should validate a terminal-ready engine through a small autonomous
 world that players influence with commands. Use existing engine systems for

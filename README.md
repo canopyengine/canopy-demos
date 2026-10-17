@@ -1,7 +1,8 @@
 # Canopy demos
 
 Examples for the experimental Canopy engine. The committed project in
-[engine/0.1.0](engine/0.1.0/README.md) targets **0.1.0-dev2**.
+[engine/0.1.0](engine/0.1.0/README.md) targets the foundation integration's
+**0.1.0-dev4** artifacts on this side branch.
 
 The ecosystem example currently loads TOML configuration, creates a scene and
 passes data through Context. Simulation, commands and narration are placeholders.
@@ -15,9 +16,9 @@ project Gradle9.8.0 wrapper. Publish the matching engine
 locally before compiling; [project instructions](engine/0.1.0/README.md) include
 exact commands. CI builds the demo, runs ktlint, submits dependencies on main
 pushes and scans Java/Kotlin with CodeQL. It builds engine snapshot commit
-`61122d43706ee9e1e4aa78c84764545be2f46ee9` as a reproducible dependency. The last
-merged engine before that migration is `9c1e0f9`; it does not publish the new
-coordinates. See the project instructions for the exact migration revision.
+`d96056cbe9b15d432523e8d7d53bcd1c08534743` as a reproducible dependency.
+This integration is not yet merged or published on Maven Central. The project
+includes the bare Java launcher for native terminal input; see its instructions.
 
 Main changes require a PR, one human approval, passing build/CodeQL checks and
 squash merging. Follow the [Canopy contribution guidelines](https://github.com/canopyengine/canopy-docs/blob/main/markdown/contributing/contributing.md),
