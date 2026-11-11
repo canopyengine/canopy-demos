@@ -31,7 +31,7 @@ It is on a side branch and is not yet merged or published on Maven Central:
 ```sh
 git clone https://github.com/canopyengine/canopy.git
 cd canopy
-git checkout 6fbeef338797f0b035edf85681338af27ed936d7
+git checkout d6349011a35695b26fd3e0fa290f19bbc45c4f18
 ./gradlew publishToMavenLocal
 ```
 
