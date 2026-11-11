@@ -1,6 +1,6 @@
 # Ecosystem demo scaffold
 
-Targets the foundation integration's **Canopy 0.1.0-dev4** with Kotlin2.4.10.
+Targets the developer-experience test branch's **Canopy 0.1.0-dev4** with Kotlin2.4.10.
 Install JDK17 for the compiler tooling
 and Gradle host, plus JDK25 for engine/game compilation and execution.
 
@@ -25,13 +25,13 @@ new weather model requires a separate code/configuration migration.
 
 ## Build and run
 
-First clone the engine and publish the matching foundation integration revision.
+First clone the engine and publish the matching developer-experience revision.
 It is on a side branch and is not yet merged or published on Maven Central:
 
 ```sh
 git clone https://github.com/canopyengine/canopy.git
 cd canopy
-git checkout 783eee9d4d5cecfd89e7931e9f250741a82f2942
+git checkout d6349011a35695b26fd3e0fa290f19bbc45c4f18
 ./gradlew publishToMavenLocal
 ```
 
