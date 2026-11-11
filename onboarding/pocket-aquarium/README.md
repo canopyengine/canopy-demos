@@ -10,9 +10,22 @@ compilation. The Gradle wrapper works on Windows (`gradlew.bat`), Linux and macO
 
 Canopy `0.1.0-dev4` currently requires matching locally published engine and
 compiler artifacts. Follow the existing [local publication instructions](../../engine/0.1.0/README.md#build-and-run),
-using the pinned foundation integration revision. Alternatively, pass `-PcanopyRepository=file:///path/to/repository`
+using pinned engine revision `59e0c463b74abcc94959330aa5e4583fe1b8b41b` from
+`codex/agent/feat/native-reactive-properties` (engine PR232). Alternatively, pass `-PcanopyRepository=file:///path/to/repository`
 to select a staged Maven repository.
 
 From `starter/`, run `./gradlew build` to check the skeleton. There is no runnable
-entry point until you add `fun main()` to `src/main/kotlin/Main.kt`. The terminal
-launcher and completed reference game will be added with the playable example.
+entry point until you add `fun main()` to `src/main/kotlin/Main.kt`. After adding it, launch from `starter/` with the same command on Windows, Linux
+and macOS:
+
+```sh
+java CanopyLaunch.java
+```
+
+The included launcher builds through Gradle, then starts the game directly in a
+separate terminal window so keyboard input reaches the game. Use
+`java CanopyLaunch.java --current-terminal` for SSH or a headless session.
+To select isolated artifacts, append
+`--gradle-arg "-PcanopyRepository=file:///absolute/path/to/repository"`.
+Keep the engine and compiler from the same pinned revision; both currently use
+`0.1.0-dev4`. The completed reference game follows the maintainer's Aquarium work.
