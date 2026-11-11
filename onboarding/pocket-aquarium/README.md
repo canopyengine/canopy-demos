@@ -10,7 +10,7 @@ compilation. The Gradle wrapper works on Windows (`gradlew.bat`), Linux and macO
 
 Canopy `0.1.0-dev4` currently requires matching locally published engine and
 compiler artifacts. Follow the existing [local publication instructions](../../engine/0.1.0/README.md#build-and-run),
-using pinned engine revision `59e0c463b74abcc94959330aa5e4583fe1b8b41b` from
+using pinned engine revision `6fbeef338797f0b035edf85681338af27ed936d7` from
 `codex/agent/feat/native-reactive-properties` (engine PR232). Alternatively, pass `-PcanopyRepository=file:///path/to/repository`
 to select a staged Maven repository.
 
