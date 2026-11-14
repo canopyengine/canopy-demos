@@ -6,7 +6,7 @@ runs:
     - uses: actions/checkout@v7
       with:
         repository: canopyengine/canopy
-        ref: ac33a9f74daea5e443304d06fb023caf9d47d9ef
+        ref: 008f206c5bd22ea149df61597ba2a96b8578778f
         path: .engine-source
         persist-credentials: false
     - uses: actions/setup-java@v6
