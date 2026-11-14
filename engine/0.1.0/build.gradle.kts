@@ -10,6 +10,9 @@ group = "io.github.canopy.demos"
 version = "1.0-SNAPSHOT"
 
 repositories {
+    providers.gradleProperty("canopyRepository").orNull?.let { repository ->
+        maven { url = uri(repository) }
+    }
     mavenLocal()
     mavenCentral()
 }

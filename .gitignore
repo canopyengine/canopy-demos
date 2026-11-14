@@ -30,6 +30,7 @@ replay_pid*
 
 # Gradle wrapper is source; build/runtime outputs are not.
 !engine/0.1.0/gradle/wrapper/gradle-wrapper.jar
+!onboarding/pocket-aquarium/starter/gradle/wrapper/gradle-wrapper.jar
 **/.gradle/
 **/build/
 **/.canopy/

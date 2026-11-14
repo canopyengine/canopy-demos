@@ -1,7 +1,7 @@
 package io.github.canopy.demos.ecosystem.world
 
 import io.canopy.engine.core.flows.Context
-import io.canopy.engine.core.managers.manager
+import io.canopy.engine.core.managers.getManager
 import io.canopy.engine.core.nodes.Node
 import io.canopy.engine.core.nodes.behavior
 import io.canopy.engine.data.assets.AssetsManager
@@ -24,7 +24,7 @@ class World(name: String, private val seed: String = "", block: World.() -> Unit
     override fun nodeInit() {
         behavior(
             onEnterTree = {
-                val assetsManager = manager<AssetsManager>()
+                val assetsManager = getManager<AssetsManager>()
 
                 val file = assetsManager.loadFile("config.toml", FileSource.Classpath)
 
