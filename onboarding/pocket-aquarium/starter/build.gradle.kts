@@ -1,6 +1,6 @@
 plugins {
     alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.canopy.compiler)
+   alias(libs.plugins.canopy.compiler)
     application
 }
 
@@ -12,7 +12,7 @@ dependencies {
 
 kotlin { jvmToolchain(25) }
 
-application { mainClass.set("MainKt") }
+application { mainClass.set("onboarding.aquarium.terminal.MainKt") }
 
 tasks.withType<JavaExec>().configureEach {
     jvmArgs("--enable-native-access=ALL-UNNAMED")
