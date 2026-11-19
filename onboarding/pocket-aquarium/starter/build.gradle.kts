@@ -1,6 +1,6 @@
 plugins {
     alias(libs.plugins.kotlin.jvm)
-   alias(libs.plugins.canopy.compiler)
+    alias(libs.plugins.canopy.compiler)
     application
 }
 
