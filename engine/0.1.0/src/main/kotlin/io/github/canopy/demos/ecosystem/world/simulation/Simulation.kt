@@ -1,6 +1,6 @@
 package io.github.canopy.demos.ecosystem.world.simulation
 
-import io.canopy.engine.core.flows.fromContext
+import io.canopy.engine.core.flows.getContext
 import io.canopy.engine.core.nodes.Node
 import io.canopy.engine.core.nodes.behavior
 import io.canopy.engine.logging.logger
@@ -9,7 +9,7 @@ import io.canopy.engine.logging.logger
 class Simulation(block: Simulation.() -> Unit = {}) : Node<Simulation>("Simulation", block = block) {
 
     val data: SimulationData
-        get() = fromContext("data")
+        get() = getContext("data")
     val logger = logger("Simulation")
 
     override fun nodeInit() {

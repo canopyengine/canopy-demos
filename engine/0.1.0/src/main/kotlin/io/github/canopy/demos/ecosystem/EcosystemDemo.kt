@@ -1,18 +1,10 @@
 package io.github.canopy.demos.ecosystem
 
-import io.canopy.engine.app.Screen
-import io.canopy.engine.app.screens
+import io.canopy.engine.app.initialScreen
 import io.canopy.platforms.terminal.app.terminalApp
 import io.github.canopy.demos.ecosystem.world.World
 
-/** Installs the configuration-loading scaffold each time the demo screen is entered. */
-class EcosystemDemo : Screen() {
-    override fun onEnter() {
-        World("Ecosystem Demo").asSceneRoot()
-    }
-}
-
-/** Launches the terminal host; Ctrl+C stops its input and frame loops. */
+/** Lazily creates the configuration-loading world as the initial screen. Gameplay remains in the World tree. */
 fun main() = terminalApp {
-    screens { start(EcosystemDemo()) }
+    initialScreen<World> { World("Ecosystem Demo") }
 }.launch()
